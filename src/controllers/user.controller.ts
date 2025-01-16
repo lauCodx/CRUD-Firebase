@@ -64,4 +64,16 @@ export class UserController {
             res.status(400).send('Error updating user')
             }
     }
+
+    async deleteAUser(req:Request, res:Response): Promise<void>{
+        const {id} = req.params;
+        try {
+            await this.userService.deleteUser(id);
+            res.status(200).json({
+                message: 'User deleted successfully'
+            })
+        } catch (error) {
+            res.status(400).send('Error deleting user')
+        }
+    }
 }

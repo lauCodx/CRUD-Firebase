@@ -14,5 +14,6 @@ router.post('/create', userController.createUsers.bind(userController));
 router.get('/read/all', userController.getAllUsers.bind(userController));
 router.get('/read/:id', userController.getUser.bind(userController));
 router.patch('/update/:id', userController.updateAUser.bind(userController));
+router.delete('/delete/:id', userController.deleteAUser.bind(userController));
 
 export default router;

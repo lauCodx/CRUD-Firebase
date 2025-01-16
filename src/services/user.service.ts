@@ -59,11 +59,26 @@ export class UserService {
             };
             const updateUser: Partial<User> = {...user}
             await userRef.update(updateUser); 
-            return user ;
+            return user;
         } catch (error) {
             console.log('Error updating user', error)
             throw error;
             
+        }
+    };
+
+    async deleteUser(id: string){
+        try {
+            const user = db.collection('Users').doc(id);
+            const userDoc = await user.get();
+            if (!userDoc.exists){
+                throw new Error('User not found')
+            }
+            await user.delete();
+            return 'User deleted successfully';
+        } catch (error) {
+            console.log('Error deleting user', error);
+            throw error;
         }
     }
 
