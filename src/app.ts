@@ -10,6 +10,7 @@ admin.initializeApp({
 });
 
 export const db = admin.firestore();
+db.settings({ ignoreUndefinedProperties: true });
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

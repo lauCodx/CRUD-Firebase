@@ -36,4 +36,32 @@ export class UserController {
             res.status(400).send('Error getting users');
         }
     }
+
+    async getUser(req:Request, res:Response) : Promise<void> {
+        const {id} = req.params;
+        try {
+            const user = await this.userService.getAUser(id);
+            res.status(200).json({
+                message: 'User retrieved successfully',
+                data: user
+            })
+        } catch (error) {
+            res.status(400).send('Error getting user');
+        }
+    };
+
+    async updateAUser(req:Request, res:Response): Promise<void>{
+        const {id} = req.params;
+        const {username, email} = req.body;
+        const user: User = {username, email};
+        try {
+            const updatedUser = await this.userService.updateUser(id, user);
+            res.status(200).json({
+                message: 'User updated successfully',
+                data: updatedUser
+            })
+        } catch (error) {
+            res.status(400).send('Error updating user')
+            }
+    }
 }

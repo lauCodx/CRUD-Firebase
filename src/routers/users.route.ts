@@ -12,5 +12,7 @@ const userController = new UserController(userService);
 
 router.post('/create', userController.createUsers.bind(userController));
 router.get('/read/all', userController.getAllUsers.bind(userController));
+router.get('/read/:id', userController.getUser.bind(userController));
+router.patch('/update/:id', userController.updateAUser.bind(userController));
 
 export default router;

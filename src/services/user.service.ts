@@ -34,6 +34,40 @@ export class UserService {
             console.log('Error getting users', error)
             throw error;
         }
+    };
+
+    async getAUser(id: string): Promise<User>{
+        try {
+            const user  = db.collection('Users').doc(id)
+            const userDoc = await user.get();
+            if (!userDoc.exists){
+                throw new Error('User not found')
+            }
+            return userDoc.data() as User;
+        } catch (error) {
+            console.log('Error getting user', error)
+            throw error;
+        }
+    };
+
+    async updateUser(id: string, user:User): Promise<User>{
+        try {
+            const userRef = db.collection('Users').doc(id);
+            const userDoc = await userRef.get();
+            if (!userDoc.exists){
+                throw new Error('User not found')
+            };
+            const updateUser: Partial<User> = {...user}
+            await userRef.update(updateUser); 
+            return user ;
+        } catch (error) {
+            console.log('Error updating user', error)
+            throw error;
+            
+        }
     }
+
+
 }
 
+ 
