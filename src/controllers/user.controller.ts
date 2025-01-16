@@ -11,8 +11,9 @@ export class UserController {
     async createUsers (req:Request, res:Response): Promise<void>{
        
         try {
-            const {id, username, email} = req.body;
-            const user: User = {id, username, email};
+            const {username, email} = req.body;
+            const user: User = {username, email};
+            
             const createdUser = await this.userService.create(user);
             res.status(201).json({
                 message: 'User created successfully',
@@ -22,6 +23,17 @@ export class UserController {
         } catch (error) {
             res.status(400).send('Error creating user');
         }
-       
+    };
+
+    async getAllUsers (req:Request, res:Response): Promise<void>{
+        try {
+            const users: User[] = await this.userService.getAllUsers();
+            res.status(200).json({
+                message: 'Users retrieved successfully',
+                data: users
+            });
+        } catch (error) {
+            res.status(400).send('Error getting users');
+        }
     }
 }

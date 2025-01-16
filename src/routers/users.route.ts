@@ -4,12 +4,13 @@ import { UserController } from '../controllers/user.controller';
 
 
 
-const route = express.Router();
+const router = express.Router();
 
 const userService = new UserService()
 const userController = new UserController(userService);
 
-// Use the createUsers function in a route
-route.post('/create', userController.createUsers );
 
-export default route;
+router.post('/create', userController.createUsers.bind(userController));
+router.get('/read/all', userController.getAllUsers.bind(userController));
+
+export default router;
